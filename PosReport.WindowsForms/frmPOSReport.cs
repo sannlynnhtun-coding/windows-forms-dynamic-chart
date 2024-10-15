@@ -59,6 +59,12 @@ namespace PosReport.WindowsForms
         {
             chartSales.Visible = true;
 
+            if (comboCustomer.SelectedItem == null)
+                comboCustomer.SelectedIndex = 0;
+
+            if (comboChartType.SelectedItem == null)
+                comboChartType.SelectedIndex = 0;
+
             string selectedCustomer = comboCustomer.SelectedItem.ToString();
             string selectedChartType = comboChartType.SelectedItem.ToString();
 
