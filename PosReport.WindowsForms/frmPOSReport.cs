@@ -106,13 +106,18 @@ namespace PosReport.WindowsForms
                 }
             }
 
+            BindChart(dt, chartType, customerName);
+        }
+
+        private void BindChart(DataTable dt, string chartType, string customerName)
+        {
             // Clear existing chart data
             chartSales.Series.Clear();
             chartSales.Titles.Clear();
 
             // Create a new series
             Series series = new Series("Sales");
-            series.ChartType = GetChartType(chartType);  // Set the chart type dynamically
+            series.ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), chartType);  // Set the chart type dynamically
 
             foreach (DataRow row in dt.Rows)
             {
@@ -134,35 +139,6 @@ namespace PosReport.WindowsForms
                 series.Label = "#PERCENT";  // Show percentages
                 series.LegendText = "#VALX"; // Show sale date as legend
                 chartSales.ChartAreas[0].Area3DStyle.Enable3D = true;  // Optional: make it 3D
-            }
-        }
-
-        private SeriesChartType GetChartType(string chartType)
-        {
-            switch (chartType)
-            {
-                case "Bar":
-                    return SeriesChartType.Bar;
-                case "Column":
-                    return SeriesChartType.Column;
-                case "Line":
-                    return SeriesChartType.Line;
-                case "Pie":
-                    return SeriesChartType.Pie;
-                case "Doughnut":
-                    return SeriesChartType.Doughnut;
-                case "Spline":
-                    return SeriesChartType.Spline;
-                case "Area":
-                    return SeriesChartType.Area;
-                case "Stacked Column":
-                    return SeriesChartType.StackedColumn;
-                case "Stacked Bar":
-                    return SeriesChartType.StackedBar;
-                case "Spline Area":
-                    return SeriesChartType.SplineArea;
-                default:
-                    return SeriesChartType.Column;
             }
         }
     }
